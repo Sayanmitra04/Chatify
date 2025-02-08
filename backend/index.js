@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import {app,server} from './lib/socket.js'
 
 import path from "path";
-
+import { fileURLToPath } from "url";
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
@@ -25,7 +25,8 @@ app.use("/api/auth",authroutes);
 app.use("/api/message",messageroutes);
 
 const port = process.env.PORT ;
-const _dirname= path.resolve();
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
